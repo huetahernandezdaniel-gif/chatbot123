@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Miscelánea - Tu satisfacción es nuestra alegría</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --secondary: #8B5CF6;
+            --accent: #06D6A0;
+            --background: #0F172A;
+            --surface: #1E293B;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --text: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        .capa {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--background) 0%, transparent 100%);
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 100;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .h {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .icono {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
+
+        .icono:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .uno h3 {
+            color: var(--accent);
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(6, 214, 160, 0.6), 0 0 30px rgba(6, 214, 160, 0.4);
+            }
+        }
+
+        .dos .m {
+            color: var(--white);
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dos .m:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .l {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .bt {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem auto;
+        }
+
+        .ñ {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            padding-left: 3rem;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
+            transform: scale(1.02);
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .social-link {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .fac {
+            width: 24px;
+            height: 24px;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .floating:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .h {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .uno h3 {
+                font-size: 1.5rem;
+            }
+
+            .dos .m {
+                font-size: 1rem;
+                padding: 0.6rem 1.5rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .bt {
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .icono {
+                width: 50px;
+                height: 50px;
+            }
+
+            .uno h3 {
+                font-size: 1.3rem;
+            }
+
+            .dos .m {
+                font-size: 0.9rem;
+            }
+
+            .nav-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .feature-card {
+                padding: 1rem;
+            }
+
+            .feature-card i {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video muted autoplay loop>
+        <source src="vil.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+    <div class="capa"></div>
+
+    <!-- Floating background elements -->
+    <div class="floating"></div>
+    <div class="floating"></div>
+    <div class="floating"></div>
+
+    <header>
+        <article class="h">
+            <img src="R.jpeg" class="icono" alt="Logo de la miscelánea">
+            <div class="uno">
+                <h3><i><b>MISCELÁNEA</b></i></h3>
+            </div>
+            <div class="dos">
+                <h1 class="m">TU SATISFACCIÓN ES NUESTRA ALEGRÍA 😊</h1>
+            </div>
+            <div class="tres">
+                <!-- Espacio para elementos adicionales -->
+            </div>
+        </article>
+    </header>
+
+    <main>
+        <section class="l">
+            <div class="bt">
+                <article class="ñ">
+                    <div class="nav-buttons">
+                        <a href="dos.html" class="nav-btn">
+                            <i class="fas fa-info-circle"></i>
+                            Información General
+                        </a>
+                        <a href="tres.html" class="nav-btn">
+                            <i class="fas fa-robot"></i>
+                            Asistente Virtual
+                        </a>
+                        <a href="cutro.html" class="nav-btn">
+                            <i class="fas fa-question-circle"></i>
+                            Centro de Ayuda
+                        </a>
+                    </div>
+
+                  
+                </article>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-shopping-basket"></i>
+                <h3>Productos Variados</h3>
+                <p>Encuentra todo lo que necesitas en un solo lugar: abarrotes, limpieza, higiene personal y más.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-tags"></i>
+                <h3>Precios Competitivos</h3>
+                <p>Ofrecemos los mejores precios de la zona, adaptándonos al presupuesto de nuestros clientes.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-truck"></i>
+                <h3>Servicio a Domicilio</h3>
+                <p>Realizamos entregas a domicilio para tu mayor comodidad y seguridad.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>Horario Extendido</h3>
+                <p>Atendemos de lunes a domingo con horarios que se adaptan a tus necesidades.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://facebook.com" class="social-link" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://whatsapp.com" class="social-link" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://instagram.com" class="social-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <p>Contáctanos en nuestras redes sociales</p>
+        <p><i class="fas fa-map-marker-alt"></i> DIRECCIÓN: AV. Tejalpa 305</p>
+        <p><i class="fas fa-phone"></i> Teléfono: (123) 456-7890</p>
+        <p>&copy; 2024 Miscelánea. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Efecto de escritura en el placeholder
+        const searchInput = document.querySelector('input[type="text"]');
+        const placeholders = [
+            "Buscar productos...",
+            "Encontrar ofertas...",
+            "¿Qué necesitas hoy?"
+        ];
+        let currentPlaceholder = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentText = placeholders[currentPlaceholder];
+
+            if (isDeleting) {
+                searchInput.placeholder = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                searchInput.placeholder = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentPlaceholder = (currentPlaceholder + 1) % placeholders.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? 50 : 100);
+            }
+        }
+
+        // Iniciar efecto cuando la página cargue
+        window.addEventListener('load', () => {
+            setTimeout(typeEffect, 1000);
+        });
+
+        // Efecto de parpadeo en los botones
+        const navButtons = document.querySelectorAll('.nav-btn');
+        setInterval(() => {
+            const randomButton = navButtons[Math.floor(Math.random() * navButtons.length)];
+            randomButton.style.transform = 'translateY(-5px) scale(1.05)';
+            setTimeout(() => {
+                randomButton.style.transform = 'translateY(-5px) scale(1)';
+            }, 300);
+        }, 3000);
+
+        // Animación al hacer scroll
+        const featureCards = document.querySelectorAll('.feature-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        featureCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

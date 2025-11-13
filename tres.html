@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Virtual - Miscelánea San Pedro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --secondary: #8B5CF6;
+            --accent: #06D6A0;
+            --user-msg: #4F46E5;
+            --bot-msg: #7C3AED;
+            --background: #0F172A;
+            --surface: #1E293B;
+            --text: #F1F5F9;
+            --text-secondary: #94A3B8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 100;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .icono {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
+
+        .icono:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .uno h3 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(6, 214, 160, 0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(6, 214, 160, 0.6), 0 0 30px rgba(6, 214, 160, 0.4);
+            }
+        }
+
+        .dos {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dos:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .dos h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* Video Background */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.3;
+        }
+
+        .capa {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--background), transparent);
+            z-index: -1;
+        }
+
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 140px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        section {
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cent {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 60vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Chat Messages - CORREGIDO */
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            margin: 0.5rem 0;
+            position: relative;
+            animation: messageSlide 0.3s ease-out;
+            line-height: 1.5;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--user-msg), #4338CA);
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            margin-left: auto;
+        }
+
+        .bot {
+            align-self: flex-start;
+            background: linear-gradient(135deg, var(--bot-msg), #6D28D9);
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            margin-right: auto;
+        }
+
+        /* Eliminamos los triángulos que causaban problemas */
+        .message::before {
+            display: none;
+        }
+
+        /* Chat Form */
+        .chat {
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
+            transform: scale(1.02);
+        }
+
+        input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--accent), #05A87F);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 5px 15px rgba(6, 214, 160, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        footer a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Scrollbar */
+        .cent::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .cent::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .cent::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+
+        /* Typing Animation */
+        .typing {
+            display: inline-block;
+            position: relative;
+        }
+
+        .typing::after {
+            content: '...';
+            position: absolute;
+            animation: typing 1.5s infinite;
+        }
+
+        @keyframes typing {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        /* Pulse Animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 214, 160, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(6, 214, 160, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 214, 160, 0);
+            }
+        }
+
+        /* Quick Questions - MEJORADO */
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .quick-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text);
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .quick-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Product Price Tags - MEJORADO */
+        .price-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin: 0.3rem 0.2rem;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .price-tag:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Product Grid - NUEVO */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .product-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .product-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Responsive - MEJORADO */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            .uno h3 {
+                font-size: 1.5rem;
+            }
+
+            .dos h2 {
+                font-size: 1rem;
+                padding: 0.6rem 1.5rem;
+            }
+
+            .cent {
+                height: 55vh;
+                padding: 1.5rem;
+            }
+
+            .message {
+                max-width: 90%;
+                padding: 0.9rem 1.1rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            footer a {
+                width: 220px;
+                justify-content: center;
+            }
+
+            .quick-questions {
+                gap: 0.6rem;
+            }
+
+            .quick-btn {
+                min-width: 120px;
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cent {
+                height: 50vh;
+                padding: 1rem;
+            }
+
+            .message {
+                max-width: 95%;
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            input {
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .send-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .quick-btn {
+                min-width: 100px;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            }
+
+            .product-item {
+                padding: 0.6rem;
+            }
+
+            .product-name {
+                font-size: 0.8rem;
+            }
+
+            .product-price {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video muted autoplay loop src="vil.mp4"></video>
+    <div class="capa"></div>
+
+    <header>
+        <a href="index.html"><img src="R.jpeg" class="icono" alt="Logo Miscelánea"></a>
+        <div class="uno">
+            <h3><i><b>MISCELÁNEA SAN PEDRO</b></i></h3>
+        </div>
+        <div class="dos">
+            <h2><b>TU SATISFACCIÓN ES NUESTRA ALEGRÍA 😊</b></h2>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <article class="cent">
+                <div class="message bot">
+                    ¡Hola! Soy tu asistente virtual de Miscelánea San Pedro.
+                    Puedo ayudarte con información sobre precios, productos,
+                    ubicación y horarios. ¿En qué te puedo ayudar hoy?
+                </div>
+
+                <div class="quick-questions">
+                    <button class="quick-btn" onclick="askQuestion('¿Qué sabritas tienen y cuánto cuestan?')">
+                        <i class="fas fa-cookie"></i> Sabritas
+                    </button>
+                    <button class="quick-btn" onclick="askQuestion('¿Qué refrescos tienen disponibles?')">
+                        <i class="fas fa-wine-bottle"></i> Refrescos
+                    </button>
+                    <button class="quick-btn" onclick="askQuestion('¿Dónde están ubicados?')">
+                        <i class="fas fa-map-marker-alt"></i> Ubicación
+                    </button>
+                    <button class="quick-btn" onclick="askQuestion('¿Cuál es su horario de atención?')">
+                        <i class="fas fa-clock"></i> Horarios
+                    </button>
+                </div>
+            </article>
+
+            <form class="chat" action="index.html" method="post">
+                <div class="chat-input-container">
+                    <input type="text" name="message" placeholder="Escribe tu pregunta aquí..." id="chatInput">
+                    <button type="submit" class="send-btn pulse">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <a href="index.html"><i class="fas fa-home"></i> Página Principal</a>
+        <a href="informacion.html"><i class="fas fa-info-circle"></i> Información</a>
+        <a href="ayuda.html"><i class="fas fa-question-circle"></i> Ayuda</a>
+    </footer>
+
+    <script>
+        // Base de datos de productos y precios
+        const productos = {
+            'sabritas': {
+                'Sabritas Original': 18.00,
+                'Ruffles Queso': 20.00,
+                'Doritos Nacho': 19.00,
+                'Cheetos Poffs': 22.00,
+                'Fritos': 17.00,
+                'Chetos Torciditos': 16.00
+            },
+            'refrescos': {
+                'Coca-Cola 600ml': 20.00,
+                'Pepsi 600ml': 18.00,
+                'Sprite 600ml': 18.00,
+                'Fanta 600ml': 18.00,
+                'Jarritos 500ml': 15.00,
+                'Boing Mango': 12.00
+            },
+            'limpieza': {
+                'Jabón Zote': 15.00,
+                'Jabón Roma': 12.00,
+                'Cloro': 18.00,
+                'Detergente Ariel': 45.00,
+                'Suavitel': 25.00,
+                'Pinol': 22.00
+            },
+            'focos': {
+                'Foco Ahorrador 15W': 35.00,
+                'Foco LED 9W': 40.00,
+                'Foco LED 12W': 50.00,
+                'Foco Cálido 60W': 15.00
+            },
+            'abarrotes': {
+                'Arroz 1kg': 25.00,
+                'Frijol 1kg': 30.00,
+                'Aceite 1L': 35.00,
+                'Azúcar 1kg': 28.00,
+                'Sal 1kg': 12.00
+            }
+        };
+
+        // Respuestas predefinidas
+        const botResponses = {
+            'horario': '⏰ <strong>Horario de atención:</strong><br>Lunes a Sábado: 7:00 AM - 10:00 PM<br>Domingos: 8:00 AM - 9:00 PM',
+            'ubicación': '📍 <strong>Ubicación:</strong><br>AV. San Pedro #7295282729<br>Enfrente de la Capilla San Pedro',
+            'telefono': '📞 <strong>Teléfono:</strong><br>7295282729',
+            'pago': '💳 <strong>Métodos de pago:</strong><br>• Efectivo<br>• Tarjetas débito/crédito<br>• Transferencias',
+            'delivery': '🚚 <strong>Delivery:</strong><br>• Envío gratis en compras > $200<br>• Costo: $25 (compras menores)'
+        };
+
+        // Función para preguntas rápidas
+        function askQuestion(question) {
+            const chatContainer = document.querySelector('.cent');
+            const input = document.getElementById('chatInput');
+
+            // Mensaje del usuario
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.textContent = question;
+            chatContainer.appendChild(userMessage);
+
+            // Respuesta del bot
+            setTimeout(() => {
+                const response = getBotResponse(question);
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.innerHTML = response;
+                chatContainer.appendChild(botMessage);
+
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 800);
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Función para respuestas del bot
+        function getBotResponse(question) {
+            question = question.toLowerCase();
+
+            // Productos específicos
+            if (question.includes('sabritas') || question.includes('botanas') || question.includes('papas')) {
+                return formatProductResponse('sabritas', '🥔 <strong>Sabritas disponibles:</strong>');
+            }
+            if (question.includes('refresco') || question.includes('coca') || question.includes('pepsi')) {
+                return formatProductResponse('refrescos', '🥤 <strong>Refrescos disponibles:</strong>');
+            }
+            if (question.includes('jabon') || question.includes('limpieza')) {
+                return formatProductResponse('limpieza', '🧼 <strong>Productos de limpieza:</strong>');
+            }
+            if (question.includes('foco') || question.includes('luz')) {
+                return formatProductResponse('focos', '💡 <strong>Focos disponibles:</strong>');
+            }
+            if (question.includes('arroz') || question.includes('frijol') || question.includes('abarrotes')) {
+                return formatProductResponse('abarrotes', '🛒 <strong>Abarrotes básicos:</strong>');
+            }
+
+            // Respuestas generales
+            if (question.includes('horario') || question.includes('hora')) {
+                return botResponses.horario;
+            }
+            if (question.includes('ubicado') || question.includes('dirección') || question.includes('donde')) {
+                return botResponses.ubicación;
+            }
+            if (question.includes('teléfono') || question.includes('numero')) {
+                return botResponses.telefono;
+            }
+            if (question.includes('pago') || question.includes('tarjeta')) {
+                return botResponses.pago;
+            }
+            if (question.includes('delivery') || question.includes('domicilio')) {
+                return botResponses.delivery;
+            }
+
+            return '🤔 No entendí tu pregunta. Puedo ayudarte con:<br>• Precios de productos<br>• Ubicación y horarios<br>• Información de la tienda';
+        }
+
+        // Formatear respuesta de productos
+        function formatProductResponse(categoria, titulo) {
+            let response = titulo + '<br><div class="product-grid">';
+            const productosCategoria = productos[categoria];
+
+            for (const [producto, precio] of Object.entries(productosCategoria)) {
+                response += `
+                    <div class="product-item">
+                        <div class="product-name">${producto}</div>
+                        <div class="product-price">$${precio.toFixed(2)}</div>
+                    </div>
+                `;
+            }
+
+            response += '</div>';
+            return response;
+        }
+
+        // Manejar envío del formulario
+        document.querySelector('.chat').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input');
+            const message = input.value.trim();
+
+            if (message) {
+                const chatContainer = document.querySelector('.cent');
+
+                // Mensaje del usuario
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                chatContainer.appendChild(userMessage);
+
+                // Limpiar input
+                input.value = '';
+
+                // Respuesta del bot
+                setTimeout(() => {
+                    const response = getBotResponse(message);
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot';
+                    botMessage.innerHTML = response;
+                    chatContainer.appendChild(botMessage);
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, 800);
+
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        });
+
+        // Efecto de placeholder animado
+        const input = document.getElementById('chatInput');
+        const placeholders = [
+            "Pregunta por precios de productos...",
+            "¿Qué sabritas tienes disponibles?",
+            "¿Cuál es tu horario de atención?"
+        ];
+        let currentPlaceholder = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentText = placeholders[currentPlaceholder];
+
+            if (isDeleting) {
+                input.placeholder = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                input.placeholder = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentPlaceholder = (currentPlaceholder + 1) % placeholders.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? 50 : 100);
+            }
+        }
+
+        // Iniciar efectos
+        window.addEventListener('load', () => {
+            setTimeout(typeEffect, 1000);
+        });
+    </script>
+</body>
+</html>
